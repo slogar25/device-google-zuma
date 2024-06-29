@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
+
 include device/google/gs-common/device.mk
 include device/google/gs-common/gs_watchdogd/watchdog.mk
 include device/google/gs-common/ramdump/ramdump.mk
@@ -336,7 +338,7 @@ DEVICE_PACKAGE_OVERLAYS += device/google/zuma/overlay
 PRODUCT_SHIPPING_API_LEVEL := 34
 
 # RKP VINTF
--include vendor/google_nos/host/android/hals/keymaster/aidl/strongbox/RemotelyProvisionedComponent-citadel.mk
+#-include vendor/google_nos/host/android/hals/keymaster/aidl/strongbox/RemotelyProvisionedComponent-citadel.mk
 
 # Enforce the Product interface
 PRODUCT_PRODUCT_VNDK_VERSION := current
@@ -916,6 +918,19 @@ $(call inherit-product-if-exists, vendor/samsung_slsi/telephony/$(BOARD_USES_SHA
 PRODUCT_PACKAGES += ShannonIms
 
 PRODUCT_PACKAGES += ShannonRcs
+
+ifeq ($(BLAZE_BUILD),)
+ifeq (,$(filter aosp_% factory_%,$(TARGET_PRODUCT)))
+
+#ImsMediaAoc library
+FEATURE_TYPE := oem_audio
+SOONG_CONFIG_NAMESPACES += audio_lib
+SOONG_CONFIG_audio_lib += \
+        audio_type
+
+SOONG_CONFIG_audio_lib_audio_type := $(FEATURE_TYPE)
+endif
+endif
 
 # Exynos RIL and telephony
 # Multi SIM(DSDS)
