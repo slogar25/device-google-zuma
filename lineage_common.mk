@@ -27,6 +27,13 @@ PRODUCT_PRODUCT_PROPERTIES += ro.opa.eligible_device=true
 # Lineage Health
 include hardware/google/pixel/lineage_health/device.mk
 
+#EUICC
+ifneq ($(BOARD_WITHOUT_RADIO),true)
+# product permissions XML from stock
+PRODUCT_COPY_FILES += \
+    device/google/zuma/product-permissions-stock.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/product-permissions-stock.xml
+endif
+
 # Linker config
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     device/google/zuma/linker.config.json

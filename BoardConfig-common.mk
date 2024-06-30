@@ -16,8 +16,6 @@
 include build/make/target/board/BoardConfigMainlineCommon.mk
 include build/make/target/board/BoardConfigPixelCommon.mk
 
-BUILD_BROKEN_DUP_RULES := true
-
 
 # Should be uncommented after fixing vndk-sp violation is fixed.
 PRODUCT_FULL_TREBLE_OVERRIDE := true
@@ -387,6 +385,11 @@ BOARD_VENDOR_KERNEL_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 # Vendor ramdisk image for kernel development
 BOARD_BUILD_VENDOR_RAMDISK_IMAGE := true
 
+BOARD_DO_NOT_STRIP_RECOVERY_MODULES := true
+BOARD_DO_NOT_STRIP_VENDOR_MODULES := true
+BOARD_DO_NOT_STRIP_VENDOR_RAMDISK_MODULES := true
+BOARD_DO_NOT_STRIP_VENDOR_KERNEL_RAMDISK_MODULES := true
+
 KERNEL_MODULE_DIR := $(TARGET_KERNEL_DIR)
 KERNEL_MODULES := $(wildcard $(KERNEL_MODULE_DIR)/*.ko)
 
@@ -416,7 +419,7 @@ BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
 BUILD_BROKEN_DUP_RULES := true
 
-include device/google/zuma-sepolicy/zuma-sepolicy.mk
+include device/google/zuma/sepolicy/zuma-sepolicy.mk
 
 # Battery options
 BOARD_KERNEL_CMDLINE += at24.write_timeout=100
