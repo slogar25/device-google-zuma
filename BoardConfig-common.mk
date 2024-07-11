@@ -18,6 +18,7 @@ include build/make/target/board/BoardConfigPixelCommon.mk
 
 BUILD_BROKEN_DUP_RULES := true
 
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 
 # Should be uncommented after fixing vndk-sp violation is fixed.
 PRODUCT_FULL_TREBLE_OVERRIDE := true
